@@ -3,10 +3,11 @@
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-echo -e "${GREEN}[*] Bug Bounty Toolkit Installer${NC}"
+echo -e "${GREEN}[*] OSCP Toolkit Installer${NC}"
 echo -e "${GREEN}[*] Setting Up Directories${NC}"
 
-cd $HOME
+# cd $HOME
+
 
 
 
@@ -196,14 +197,18 @@ gunzip /usr/share/wordlists/rockyou.txt.gz
 # Setting up Dotfiles
 ########################################
 echo -e "${GREEN}[*] Setting up Dotfiles ${NC}"
-mv .nanorc $HOME/.nanorc
-mv .tmux.conf $HOME/.tmux.conf
-mv .vimrc $HOME/.vimrc
 
+cp .nanorc $HOME/.nanorc
+echo -e "${GREEN}[*] copy .nanorc completed ${NC}"
 
-echo -e "${GREEN}[*] Load tmux config ${NC}"
+cp .vimrc $HOME/.vimrc
+echo -e "${GREEN}[*] copy .nanorc completed ${NC}"
+
+cp .tmux.conf $HOME/.tmux.conf
+echo -e "${GREEN}[*] copy .tmux.conf completed ${NC}"
+
 tmux source-file ~/.tmux.conf 
-
+echo -e "${GREEN}[*] Load tmux config completed ${NC}"
 
 ########################################
 # Configure Neovim
@@ -222,7 +227,7 @@ echo "Created: $HOME/.config/nvim"
 
 # Move init.lua if it exists
 if [ -f "init.lua" ]; then
-    mv init.lua "$HOME/.config/nvim/init.lua"
+    cp init.lua "$HOME/.config/nvim/init.lua"
     echo "Moved init.lua to $HOME/.config/nvim/init.lua"
 else
     echo "init.lua not found in the current directory — skipping move."
@@ -232,20 +237,32 @@ echo -e "${GREEN}[*] Neovim setup complete${NC}"
 
 
 # SecLists
-echo -e "${GREEN}[*]  Cloning SecLists  ${NC}"
-read -p "Do you want to download SecLists? y/n " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    echo -e "${GREEN}[*] Downloading SecLists${NC}"
-    cd /usr/share/wordlists
-    git clone --depth 1 https://github.com/danielmiessler/SecLists.git
-fi
+echo -e "${GREEN}[*]  Setting SecLists  ${NC}"
+
+# Default path for SecLists
+SECLISTS_PATH="/usr/share/wordlists/SecLists" 
 
 if [[ -d "$SECLISTS_PATH" ]]; then
-    echo -e "${GREEN}[*] SecLists directory found at $SECLISTS_PATH. ${NC}"
+    echo -e "${GREEN}[+] SecLists directory found at $SECLISTS_PATH.${NC}"
 else
     echo -e "${GREEN}[*] SecLists directory not found at $SECLISTS_PATH. ${NC}"
+    read -p "Do you want to download SecLists? y/n " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo -e "${GREEN}[*] Downloading SecLists${NC}"
+        cd /usr/share/wordlists
+        git clone --depth 1 https://github.com/danielmiessler/SecLists.git
+        
+        if [[ -d "$SECLISTS_PATH" ]]; then
+            echo -e "${GREEN}[+] SecLists successfully cloned to $SECLISTS_PATH.${NC}"
+        else
+            echo -e "${RED}[!] Cloning failed. Please check your internet connection or permissions.${NC}"
+        fi
+    else
+        echo -e "${RED}[-] Skipping SecLists download.${NC}"     
+        
+    fi
 fi
 
 echo -e "${GREEN}[*]  Cloning Complete  ${NC}"
