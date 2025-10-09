@@ -201,6 +201,8 @@ mv .tmux.conf $HOME/.tmux.conf
 mv .vimrc $HOME/.vimrc
 
 
+echo -e "${GREEN}[*] Load tmux config ${NC}"
+tmux source-file ~/.tmux.conf 
 
 
 ########################################
