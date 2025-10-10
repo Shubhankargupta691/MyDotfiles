@@ -49,9 +49,9 @@ sudo usermod -aG docker $USER   # add user to group
 
 echo -e "${GREEN}[*]  Enable and start Docker Done ${NC}"
 
-
-
-
+echo -e "${GREEN}[*]  Pulling Rust Scan Image ${NC}"
+docker pull rustscan/rustscan
+echo -e "${GREEN}[*]  Pulling Rust Scan Image Done ${NC}"
 
 ########################################
 # Install Brave Browser
