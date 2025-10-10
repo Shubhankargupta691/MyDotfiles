@@ -1,21 +1,13 @@
-#!/bin/bash
-# vpn-ip.sh — Display VPN IP address in one line (terminal + popup)
+#!/bin/sh
 
-# List of common VPN network interfaces Change it if its not the same on your system
-interfaces=("tun0" "tun1" "wg0" "wg1" "ppp0" "tap0")
+interface="$(ip tuntap show | cut -d : -f1 | head -n 1)"
+ip="$(ip a s "${interface}" 2>/dev/null \
+        | grep -o -P '(?<=inet )[0-9]{1,3}(\.[0-9]{1,3}){3}')"
 
-for iface in "${interfaces[@]}"; do
-    if ip addr show "$iface" &>/dev/null; then
-        ip_addr=$(ip -4 addr show "$iface" | awk '/inet / {print $2}' | cut -d'/' -f1)
-        if [ -n "$ip_addr" ]; then
-            msg="VPN: $iface | IP: $ip_addr"
-            notify-send "VPN Connected" "$msg"
-            echo "$msg"
-            exit 0
-        fi
-    fi
-done
-
-msg="No VPN connection detected"
-notify-send "VPN Status" "$msg"
-echo "$msg"
+if [ "${ip}" != "" ]; then
+  printf "<icon>network-vpn-symbolic</icon>"
+  printf "<txt>${ip}</txt>"
+  printf "<tool>VPN IP</tool>"
+else
+  printf "<txt></txt>"
+fi
