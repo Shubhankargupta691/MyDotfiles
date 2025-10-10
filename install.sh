@@ -212,6 +212,8 @@ echo -e "${GREEN}[*] Load tmux config completed ${NC}"
 
 cp vpn-ip.sh $HOME/vpn-ip.sh
 echo -e "${GREEN}[*] copy vpn-ip.sh completed ${NC}"
+chmod +x $HOME/vpn-ip.sh
+echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 
 ########################################
 # Configure Neovim
