@@ -29,6 +29,9 @@ apt install -y caido
 apt install -y obsidian
 apt install -y zaproxy
 apt install -y tmux
+apt install -y terminator
+apt install -y rlwrap
+apt install -y socat
 apt install fonts-jetbrains-mono
 apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
@@ -193,6 +196,12 @@ echo -e "${GREEN}[*]  unzip rockyou.txt... ${NC}"
 gunzip /usr/share/wordlists/rockyou.txt.gz
 
 
+# Ensure ~/.config exists
+if [ ! -d "$HOME/.config" ]; then
+    echo "$HOME/.config not found — creating it."
+    mkdir -p "$HOME/.config"
+fi
+
 ########################################
 # Setting up Dotfiles
 ########################################
@@ -220,11 +229,7 @@ echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 ########################################
 echo -e "${GREEN}[*] Setting up Neovim${NC}"
 
-# Ensure ~/.config exists
-if [ ! -d "$HOME/.config" ]; then
-    echo "$HOME/.config not found — creating it."
-    mkdir -p "$HOME/.config"
-fi
+
 
 # Create nvim folder
 mkdir -p "$HOME/.config/nvim"
@@ -240,7 +245,15 @@ fi
 echo -e "${GREEN}[*] Neovim setup complete${NC}"
 
 
+echo -e "${GREEN}[*] creating Terminator${NC}"
+# Create terminator folder
+mkdir -p "$HOME/.config/terminator"
+echo "Created: $HOME/.config/terminator"
 
+cp terminator_config $HOME/.config/terminator/config
+echo -e "${GREEN}[*] Terminator config copied ${NC}"
+
+########################################
 # SecLists
 echo -e "${GREEN}[*]  Setting SecLists  ${NC}"
 
