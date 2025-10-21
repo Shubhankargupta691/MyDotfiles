@@ -32,6 +32,7 @@ apt install -y tmux
 apt install -y terminator
 apt install -y rlwrap
 apt install -y socat
+apt install -y zsh
 apt install fonts-jetbrains-mono
 apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
@@ -95,6 +96,38 @@ echo -e "${GREEN}[*] Installed Complete... ${NC}"
 
 
 
+
+########################################
+# Install oh-my-zsh
+########################################
+echo -e "${GREEN}[*] Installing oh-my-zsh ${NC}"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo -e "${GREEN}[*] Installing oh-my-zsh Complete ${NC}"
+
+
+get_zsh() {
+    local user_home=$1
+    local shell_name
+    shell_name=$(basename "$SHELL")
+    if [ "$shell_name" = "zsh" ]; then
+        echo "$user_home/.zshrc"
+    elif [ "$shell_name" = "bash" ]; then
+        echo -e "${GREEN}[*] Changing default shell to zsh for user ${NC}"
+        echo chsh -s $(which zsh) 
+}
+
+echo -e "${GREEN}[*] Removing the default .zshrc file ${NC}" 
+rm -f $HOME/.zshrc
+echo -e "${GREEN}[*] copying .zshrc file to $HOME Directory ${NC}"
+cp .zshrc $HOME/.zshrc
+source $HOME/.zshrc
+echo -e "${GREEN}[*] copying .zshrc completed ${NC}"
+
+sudo cp .zshrc /root/.zshrc
+source /root/.zshrc
+echo -e "${GREEN}[*] copying .zshrc to root directory completed ${NC}"
+
+
 ########################################
 # Install Go (for normal & root user)
 ########################################
@@ -135,8 +168,6 @@ get_rc_file() {
         echo "$user_home/.zshrc"
     elif [ "$shell_name" = "bash" ]; then
         echo "$user_home/.bashrc"
-    else
-        echo "$user_home/.profile"
     fi
 }
 
@@ -155,12 +186,11 @@ update_path() {
 USER_RC=$(get_rc_file "$HOME")
 update_path "$USER_RC" "$HOME/go/bin"
 
-# Root user
-ROOT_RC=$(get_rc_file "/root")
-sudo bash -c "update_path \"$ROOT_RC\" \"/root/go/bin\"" 2>/dev/null || true
-
 # Export for current session (normal user)
 export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
+
+sudo cp /home/kali/.zshrc /root/.zshrc
+source /root/.zshrc
 
 echo -e "${GREEN}[*]  Go $GO_VERSION installation complete! ${NC}"
 go version
@@ -229,8 +259,6 @@ echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 ########################################
 echo -e "${GREEN}[*] Setting up Neovim${NC}"
 
-
-
 # Create nvim folder
 mkdir -p "$HOME/.config/nvim"
 echo "Created: $HOME/.config/nvim"
@@ -286,6 +314,18 @@ fi
 echo -e "${GREEN}[*]  Cloning Complete  ${NC}"
 
 
+
+echo -e "${GREEN}[*] Creating backup of Configuration file ${NC}"
+
+mkdir -p $HOME/backup_configs
+echo -e "${GREEN}[*] Backup Directory Created at: $HOME/backup_configs ${NC}"
+
+cp $HOME/.config/terminator/config $HOME/backup_configs/terminator/config.bak
+cp $HOME/.tmux.conf $HOME/backup_configs/.tmux.conf.bak
+cp $HOME/.nanorc $HOME/backup_configs/.nanorc.bak
+cp $HOME/.vimrc $HOME/backup_configs/.vimrc.bak
+cp $HOME/.zshrc $HOME/backup_configs/.zshrc.bak
+echo -e "${GREEN}[*] Backup Created ${NC}"
 
 ########################################
 # Final Message
