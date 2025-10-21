@@ -81,8 +81,7 @@ ZSH_THEME="bureau"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-#plugins=(git zsh-syntax-highlighting zsh-pentest nmap quiver web-search)
-
+plugins=(git zsh-syntax-highlighting zsh-pentest)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
