@@ -116,6 +116,11 @@ get_zsh() {
         echo chsh -s $(which zsh) 
 }
 
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins ${NC}"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-pentest
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
+
 echo -e "${GREEN}[*] Removing the default .zshrc file ${NC}" 
 rm -f $HOME/.zshrc
 echo -e "${GREEN}[*] copying .zshrc file to $HOME Directory ${NC}"
