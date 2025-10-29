@@ -113,3 +113,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH=$PATH:/usr/local/go/bin:/home/kali/go/bin
+
+# My own Aliases
+
+# Quick activate Python 2 virtual environment
+alias py2env='source $HOME/envs/py2env/bin/activate <<< "1"'
+# Quick activate Python 3 virtual environment
+alias py3env='source $HOME/envs/py3env/bin/activate <<< "2"'

@@ -260,6 +260,14 @@ chmod +x $HOME/vpn-ip.sh
 echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 
 ########################################
+# Python Virtual Environment Setup
+########################################
+echo -e "${GREEN}[*] Running the create_py_envs Script to create an virtual environment${NC}"
+chmod +x create_py_envs.sh
+./create_py_envs.sh
+echo -e "${GREEN}[*] Python Virtual Environment Setup Complete${NC}"
+
+########################################
 # Configure Neovim
 ########################################
 echo -e "${GREEN}[*] Setting up Neovim${NC}"
