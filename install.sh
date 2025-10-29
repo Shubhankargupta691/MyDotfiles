@@ -6,6 +6,10 @@ NC='\033[0m'
 echo -e "${GREEN}[*] OSCP Toolkit Installer${NC}"
 echo -e "${GREEN}[*] Setting Up Directories${NC}"
 
+echo -e "${GREEN}[*] Specify the user ${NC}"
+KALI_USER="/home/kali"
+ROOT_USER="/root"
+
 ########################################
 # Installing Essentials
 ########################################
@@ -123,8 +127,14 @@ cp .zshrc $HOME/.zshrc
 source $HOME/.zshrc
 echo -e "${GREEN}[*] copying .zshrc completed ${NC}"
 
-sudo cp .zshrc /root/.zshrc
-source /root/.zshrc
+
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins in ROOT ${NC}"
+sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$ROOT/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+sudo git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-$ROOT/.oh-my-zsh/custom}/plugins/zsh-pentest
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
+
+sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
+source $ROOT/.zshrc
 echo -e "${GREEN}[*] copying .zshrc to root directory completed ${NC}"
 
 
@@ -189,8 +199,8 @@ update_path "$USER_RC" "$HOME/go/bin"
 # Export for current session (normal user)
 export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
 
-sudo cp /home/kali/.zshrc /root/.zshrc
-source /root/.zshrc
+sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
+source $ROOT/.zshrc
 
 echo -e "${GREEN}[*]  Go $GO_VERSION installation complete! ${NC}"
 go version
