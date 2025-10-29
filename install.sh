@@ -6,11 +6,6 @@ NC='\033[0m'
 echo -e "${GREEN}[*] OSCP Toolkit Installer${NC}"
 echo -e "${GREEN}[*] Setting Up Directories${NC}"
 
-# cd $HOME
-
-
-
-
 ########################################
 # Installing Essentials
 ########################################
