@@ -12,12 +12,12 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="bureau"
 
 #Other Theme
-# - mh
-# - clean
-# - af-magic
-# - edvardm
-# - evan
-# - lpha3ch0
+# ZSH_THEME="mh"
+# ZSH_THEME="clean"
+# ZSH_THEME="af-magic"
+# ZSH_THEME="edvardm"
+# ZSH_THEME="evan"
+# ZSH_THEME="lpha3ch0"
 
 
 # Set list of themes to pick from when loading at random
