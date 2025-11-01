@@ -76,7 +76,7 @@ if command -v code >/dev/null 2>&1; then
 fi
 
 echo -e "${GREEN}[*]  Downloading latest VS Code... ${NC}"
-wget --content-disposition \
+wget -P "$HOME/Downloads" --content-disposition \
     "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 
 echo -e "${GREEN}[*] Installing VS Code... ${NC}"
