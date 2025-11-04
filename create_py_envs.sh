@@ -48,7 +48,8 @@ else
         fi
 
         echo -e "${GREEN}[*] Installing/Upgrading virtualenv for Python 2...${NC}"
-        sudo python2 -m pip install --upgrade setuptools==44.1.1 wheel==0.37.1 virtualenv
+        sudo python2 -m pip install --upgrade setuptools==44.1.1 wheel==0.37.1
+        pip2 install virtualenv==16.7.9
 
         PY2_PATH=$(which python2)
         echo -e "${GREEN}[*] Creating Python 2 virtual environment at $PY2_ENV...${NC}"
