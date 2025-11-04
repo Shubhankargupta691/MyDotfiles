@@ -170,39 +170,40 @@ echo -e "${GREEN}[*] Remove downloaded tar.gz Done  ${NC}"
 
 
 # Function to detect shell and determine rc file
-get_rc_file() {
-    local user_home=$1
-    local shell_name
-    shell_name=$(basename "$SHELL")
-    if [ "$shell_name" = "zsh" ]; then
-        echo "$user_home/.zshrc"
-    elif [ "$shell_name" = "bash" ]; then
-        echo "$user_home/.bashrc"
-    fi
-}
+# get_rc_file() {
+#     local user_home=$1
+#     local shell_name
+#     shell_name=$(basename "$SHELL")
+#     if [ "$shell_name" = "zsh" ]; then
+#         echo "$user_home/.zshrc"
+#     elif [ "$shell_name" = "bash" ]; then
+#         echo "$user_home/.bashrc"
+#     fi
+# }
 
-# Update PATH for a given user and rc file
-update_path() {
-    local rc_file=$1
-    local user_bin_dir=$2
-    local go_path="/usr/local/go/bin:$user_bin_dir"
+# # Update PATH for a given user and rc file
+# update_path() {
+#     local rc_file=$1
+#     local user_bin_dir=$2
+#     local go_path="/usr/local/go/bin:$user_bin_dir"
 
-    if ! grep -q "$go_path" "$rc_file" 2>/dev/null; then
-        echo "export PATH=\$PATH:$go_path" >> "$rc_file"
-    fi
-}
+#     if ! grep -q "$go_path" "$rc_file" 2>/dev/null; then
+#         echo "export PATH=\$PATH:$go_path" >> "$rc_file"
+#     fi
+# }
 
-# Normal user
-USER_RC=$(get_rc_file "$HOME")
-update_path "$USER_RC" "$HOME/go/bin"
+# # Normal user
+# USER_RC=$(get_rc_file "$HOME")
+# update_path "$USER_RC" "$HOME/go/bin"
 
-# Export for current session (normal user)
-export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
+# # Export for current session (normal user)
+# export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
 
-sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
-source $ROOT/.zshrc
+# sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
+# source $ROOT/.zshrc
 
 echo -e "${GREEN}[*]  Go $GO_VERSION installation complete! ${NC}"
+export PATH=$PATH:/usr/local/go/bin
 go version
 
 echo -e "${GREEN}[*]  PATH updated in $USER_RC and $ROOT_RC ${NC}"
