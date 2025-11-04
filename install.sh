@@ -49,6 +49,7 @@ sudo systemctl start docker
 
 sudo groupadd docker || true    # ensure group exists
 sudo usermod -aG docker $USER   # add user to group
+sudo chmod 666 /var/run/docker.sock
 
 echo -e "${GREEN}[*]  Enable and start Docker Done ${NC}"
 
