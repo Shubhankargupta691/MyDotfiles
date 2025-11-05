@@ -19,7 +19,7 @@ echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
 echo -e "${GREEN}[*] Removing the default .zshrc file ${NC}" 
 rm -f $HOME/.zshrc
 echo -e "${GREEN}[*] copying .zshrc file to $HOME Directory ${NC}"
-cp .zshrc $HOME/.zshrc
+cp Config_File/.zshrc $HOME/.zshrc
 # Only source .zshrc if we're currently running zsh. Sourcing a zsh rc
 # from bash can cause syntax errors because .zshrc contains zsh-specific
 # syntax. If the current shell isn't zsh, print instructions instead.
