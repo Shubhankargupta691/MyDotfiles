@@ -16,24 +16,24 @@ ROOT_USER="/root"
 
 echo -e "${GREEN}[*] Installing Essentials ${NC}"
 
-apt update && apt upgrade -y
-apt install -y massdns
-apt install -y dnsutils
-apt install -y dotdotpwn
-apt install -y sublist3r
-apt install -y knockpy
-apt install -y fierce
-apt install -y neovim
-apt install -y caido
-apt install -y obsidian
-apt install -y zaproxy
-apt install -y tmux
-apt install -y terminator
-apt install -y rlwrap
-apt install -y socat
-apt install -y zsh
-apt install fonts-jetbrains-mono
-apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt update && apt upgrade -y
+sudo apt install -y massdns
+sudo apt install -y dnsutils
+sudo apt install -y dotdotpwn
+sudo apt install -y sublist3r
+sudo apt install -y knockpy
+sudo apt install -y fierce
+sudo apt install -y neovim
+sudo apt install -y caido
+sudo apt install -y obsidian
+sudo apt install -y zaproxy
+sudo apt install -y tmux
+sudo apt install -y terminator
+sudo apt install -y rlwrap
+sudo apt install -y socat
+sudo apt install -y zsh
+sudo apt install fonts-jetbrains-mono
+sudo apt install -y docker-cli docker-compose docker.io 
 
 echo -e "${GREEN}[*] Essentials installed${NC}"
 
@@ -91,7 +91,7 @@ if [ -z "$DEB_FILE" ]; then
 fi
 
 echo -e "${GREEN}[*] Installing $DEB_FILE... ${NC}"
-dpkg -i "$DEB_FILE"
+sudo dpkg -i "$DEB_FILE"
 echo -e "${GREEN}[*] Installed Complete... ${NC}"
 
 
@@ -101,41 +101,11 @@ echo -e "${GREEN}[*] Installed Complete... ${NC}"
 # Install oh-my-zsh
 ########################################
 echo -e "${GREEN}[*] Installing oh-my-zsh ${NC}"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-echo -e "${GREEN}[*] Installing oh-my-zsh Complete ${NC}"
 
+chmod +x ZSH.sh
+./ZSH.sh
+sudo HOME=/root ./ZSH.sh
 
-get_zsh() {
-    local user_home=$1
-    local shell_name
-    shell_name=$(basename "$SHELL")
-    if [ "$shell_name" = "zsh" ]; then
-        echo "$user_home/.zshrc"
-    elif [ "$shell_name" = "bash" ]; then
-        echo -e "${GREEN}[*] Changing default shell to zsh for user ${NC}"
-        echo chsh -s $(which zsh) 
-}
-
-echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins ${NC}"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-pentest
-echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
-
-echo -e "${GREEN}[*] Removing the default .zshrc file ${NC}" 
-rm -f $HOME/.zshrc
-echo -e "${GREEN}[*] copying .zshrc file to $HOME Directory ${NC}"
-cp .zshrc $HOME/.zshrc
-source $HOME/.zshrc
-echo -e "${GREEN}[*] copying .zshrc completed ${NC}"
-
-
-echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins in ROOT ${NC}"
-sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$ROOT/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-sudo git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-$ROOT/.oh-my-zsh/custom}/plugins/zsh-pentest
-echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
-
-sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
-source $ROOT/.zshrc
 echo -e "${GREEN}[*] copying .zshrc to root directory completed ${NC}"
 
 
@@ -145,7 +115,7 @@ echo -e "${GREEN}[*] copying .zshrc to root directory completed ${NC}"
 # GO-Lang
 echo -e "${GREEN}[*] Installing Go Lang ${NC}"
 
-GO_VERSION="1.25.1"
+GO_VERSION="1.25.3"
 GO_URL="https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
 GO_TAR="$HOME/Downloads/go${GO_VERSION}.linux-amd64.tar.gz"
 
@@ -170,44 +140,12 @@ rm -f "$GO_TAR"
 echo -e "${GREEN}[*] Remove downloaded tar.gz Done  ${NC}"
 
 
-# Function to detect shell and determine rc file
-# get_rc_file() {
-#     local user_home=$1
-#     local shell_name
-#     shell_name=$(basename "$SHELL")
-#     if [ "$shell_name" = "zsh" ]; then
-#         echo "$user_home/.zshrc"
-#     elif [ "$shell_name" = "bash" ]; then
-#         echo "$user_home/.bashrc"
-#     fi
-# }
-
-# # Update PATH for a given user and rc file
-# update_path() {
-#     local rc_file=$1
-#     local user_bin_dir=$2
-#     local go_path="/usr/local/go/bin:$user_bin_dir"
-
-#     if ! grep -q "$go_path" "$rc_file" 2>/dev/null; then
-#         echo "export PATH=\$PATH:$go_path" >> "$rc_file"
-#     fi
-# }
-
-# # Normal user
-# USER_RC=$(get_rc_file "$HOME")
-# update_path "$USER_RC" "$HOME/go/bin"
-
-# # Export for current session (normal user)
-# export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"
-
-# sudo cp $KALI_USER/.zshrc $ROOT/.zshrc
-# source $ROOT/.zshrc
+echo -e "${GREEN}[*]  PATH updated in $USER_RC and $ROOT_RC ${NC}"
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
+echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee -a /root/.zshrc
 
 echo -e "${GREEN}[*]  Go $GO_VERSION installation complete! ${NC}"
-export PATH=$PATH:/usr/local/go/bin
 go version
-
-echo -e "${GREEN}[*]  PATH updated in $USER_RC and $ROOT_RC ${NC}"
 echo -e "${GREEN}[*]  Go-Lang Installed ${NC}"
 
 
@@ -235,8 +173,7 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 # Extract RockYou.txt
 ########################################
 echo -e "${GREEN}[*]  unzip rockyou.txt... ${NC}"
-gunzip /usr/share/wordlists/rockyou.txt.gz
-
+sudo gunzip /usr/share/wordlists/rockyou.txt.gz
 
 # Ensure ~/.config exists
 if [ ! -d "$HOME/.config" ]; then
@@ -258,7 +195,12 @@ echo -e "${GREEN}[*] copy .nanorc completed ${NC}"
 cp .tmux.conf $HOME/.tmux.conf
 echo -e "${GREEN}[*] copy .tmux.conf completed ${NC}"
 
-tmux source-file ~/.tmux.conf 
+echo -e "${GREEN}[*] Creating TMUX session to Load tmux config file ${NC}"
+tmux new -s default -d
+tmux source-file ~/.tmux.conf
+
+echo -e "${GREEN}[*] Killing TMUX SERVER RUNNING check if there is any error on Line=203 tmux config completed ${NC}"
+tmux kill-server
 echo -e "${GREEN}[*] Load tmux config completed ${NC}"
 
 cp vpn-ip.sh $HOME/vpn-ip.sh
@@ -303,6 +245,7 @@ echo -e "${GREEN}[*] Terminator config copied ${NC}"
 
 ########################################
 # SecLists
+########################################
 echo -e "${GREEN}[*]  Setting SecLists  ${NC}"
 
 # Default path for SecLists
@@ -317,8 +260,8 @@ else
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo -e "${GREEN}[*] Downloading SecLists${NC}"
-        cd /usr/share/wordlists
-        git clone --depth 1 https://github.com/danielmiessler/SecLists.git
+        cd /usr/share/wordlists/
+        sudo git clone --depth 1 https://github.com/danielmiessler/SecLists.git
         
         if [[ -d "$SECLISTS_PATH" ]]; then
             echo -e "${GREEN}[+] SecLists successfully cloned to $SECLISTS_PATH.${NC}"
@@ -352,5 +295,4 @@ echo -e "${GREEN}[*] Backup Created ${NC}"
 ########################################
 
 echo -e "${GREEN}[*] Installation Complete! ${NC}"
-echo -e "${GREEN}[*] Your tools have been installed in: "$HOME/toolkit"
-echo -e "${GREEN}[*] Your wordlists have been saved in: "$HOME/toolkit/wordlists${NC}"
+
