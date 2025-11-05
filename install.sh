@@ -186,13 +186,13 @@ fi
 ########################################
 echo -e "${GREEN}[*] Setting up Dotfiles ${NC}"
 
-cp .nanorc $HOME/.nanorc
+cp Config_File/.nanorc $HOME/.nanorc
 echo -e "${GREEN}[*] copy .nanorc completed ${NC}"
 
-cp .vimrc $HOME/.vimrc
-echo -e "${GREEN}[*] copy .nanorc completed ${NC}"
+cp Config_File/.vimrc $HOME/.vimrc
+echo -e "${GREEN}[*] copy .vimrc completed ${NC}"
 
-cp .tmux.conf $HOME/.tmux.conf
+cp Config_File/.tmux.conf $HOME/.tmux.conf
 echo -e "${GREEN}[*] copy .tmux.conf completed ${NC}"
 
 echo -e "${GREEN}[*] Creating TMUX session to Load tmux config file ${NC}"
@@ -214,6 +214,9 @@ echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 echo -e "${GREEN}[*] Running the create_py_envs Script to create an virtual environment${NC}"
 chmod +x create_py_envs.sh
 ./create_py_envs.sh
+
+echo -e "${GREEN}[*] Python Virtual Environment Setup for Root ${NC}"
+sudo ./create_py_envs.sh
 echo -e "${GREEN}[*] Python Virtual Environment Setup Complete${NC}"
 
 ########################################
@@ -227,7 +230,7 @@ echo "Created: $HOME/.config/nvim"
 
 # Move init.lua if it exists
 if [ -f "init.lua" ]; then
-    cp init.lua "$HOME/.config/nvim/init.lua"
+    cp Config_File/init.lua "$HOME/.config/nvim/init.lua"
     echo "Moved init.lua to $HOME/.config/nvim/init.lua"
 else
     echo "init.lua not found in the current directory — skipping move."
@@ -235,12 +238,16 @@ fi
 echo -e "${GREEN}[*] Neovim setup complete${NC}"
 
 
+########################################
+# Configure Terminator
+########################################
+
 echo -e "${GREEN}[*] creating Terminator${NC}"
 # Create terminator folder
 mkdir -p "$HOME/.config/terminator"
 echo "Created: $HOME/.config/terminator"
 
-cp terminator_config $HOME/.config/terminator/config
+cp Config_File/terminator_config $HOME/.config/terminator/config
 echo -e "${GREEN}[*] Terminator config copied ${NC}"
 
 ########################################
@@ -276,19 +283,6 @@ fi
 
 echo -e "${GREEN}[*]  Cloning Complete  ${NC}"
 
-
-
-echo -e "${GREEN}[*] Creating backup of Configuration file ${NC}"
-
-mkdir -p $HOME/backup_configs
-echo -e "${GREEN}[*] Backup Directory Created at: $HOME/backup_configs ${NC}"
-
-cp $HOME/.config/terminator/config $HOME/backup_configs/terminator/config.bak
-cp $HOME/.tmux.conf $HOME/backup_configs/.tmux.conf.bak
-cp $HOME/.nanorc $HOME/backup_configs/.nanorc.bak
-cp $HOME/.vimrc $HOME/backup_configs/.vimrc.bak
-cp $HOME/.zshrc $HOME/backup_configs/.zshrc.bak
-echo -e "${GREEN}[*] Backup Created ${NC}"
 
 ########################################
 # Final Message

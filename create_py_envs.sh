@@ -98,3 +98,7 @@ echo -e "${GREEN}[*] --------------------------------------------- ${NC}"
 echo -e "${GREEN}[*] To activate, run: source activate_env.sh ${NC}"
 echo -e "${GREEN}[*] --------------------------------------------- ${NC}"
 
+
+echo -e "${GREEN}[*] --------------------------------------------- ${NC}"
+echo -e "${GREEN}[*] Run with sudo to install for Root User        ${NC}"
+echo -e "${GREEN}[*] --------------------------------------------- ${NC}"
