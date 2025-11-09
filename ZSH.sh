@@ -16,6 +16,10 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-pentest
 echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
 
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom web-search in $HOME Plugins ${NC}"
+mv web-search.sh $HOME/.oh-my-zsh/custom/plugins/web-search/web-search.sh
+echo -e "${GREEN}[*] Installing oh-my-zsh Custom web-search in $HOME Plugins Done ${NC}"
+
 echo -e "${GREEN}[*] Removing the default .zshrc file ${NC}" 
 rm -f $HOME/.zshrc
 echo -e "${GREEN}[*] copying .zshrc file to $HOME Directory ${NC}"
