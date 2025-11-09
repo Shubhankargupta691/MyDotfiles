@@ -85,7 +85,7 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git zsh-syntax-highlighting zsh-pentest)
+plugins=(git zsh-syntax-highlighting zsh-pentest web-search)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -118,8 +118,21 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # My own Aliases
-
+ 
 # Quick activate Python 2 virtual environment
 alias py2env='source $HOME/envs/py2env/bin/activate <<< "1"'
 # Quick activate Python 3 virtual environment
 alias py3env='source $HOME/envs/py3env/bin/activate <<< "2"'
+alias vpn='sudo openvpn $KALI_USER/Desktop/THM/VPN/ShubhankarGupta.ovpn <<< "3"'
+alias home='cd $KALI_USER/Desktop/THM/Offensive\ Pentesting <<< "4"'
+ 
+# OSCP TOOLS
+alias linux-Enum='cd $KALI_USER/Desktop/OSCP/Linux-Enumeration/ <<< "5"'
+alias windows-Enum='cd $KALI_USER/Desktop/OSCP/Windows-Enumeration/ <<< "6"'
+ 
+#RUSTSCAN ALISA
+alias rustscan='docker run --rm rustscan/rustscan -a'
+
+#Go lang Path
+export PATH=$PATH:/usr/local/go/bin
+
