@@ -17,6 +17,7 @@ git clone https://github.com/jhwohlgemuth/zsh-pentest.git ${ZSH_CUSTOM:-$HOME/.o
 echo -e "${GREEN}[*] Installing oh-my-zsh Custom Plugins Completed ${NC}"
 
 echo -e "${GREEN}[*] Installing oh-my-zsh Custom web-search in $HOME Plugins ${NC}"
+chmod +x web-search.sh
 mv web-search.sh $HOME/.oh-my-zsh/custom/plugins/web-search/web-search.sh
 echo -e "${GREEN}[*] Installing oh-my-zsh Custom web-search in $HOME Plugins Done ${NC}"
 
