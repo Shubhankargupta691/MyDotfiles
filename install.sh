@@ -203,16 +203,15 @@ echo -e "${GREEN}[*] Killing TMUX SERVER RUNNING check if there is any error on 
 tmux kill-server
 echo -e "${GREEN}[*] Load tmux config completed ${NC}"
 
-# echo -e "${GREEN}[*] chmod +x Local_IP.sh completed ${NC}"
+echo -e "${GREEN}[*] chmod +x Local_IP.sh completed ${NC}"
 chmod +x xfce4-panel-genmon-Local_IP.sh
 sudo cp xfce4-panel-genmon-Local_IP.sh /usr/share/kali-themes/xfce4-panel-genmon-Local_IP.sh
-# echo -e "${GREEN}[*] copy Local_IP.sh completed ${NC}"
+echo -e "${GREEN}[*] copy Local_IP.sh completed ${NC}"
 
-# echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
+echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
 chmod +x xfce4-panel-genmon-vpnip.sh
 sudo  cp xfce4-panel-genmon-vpnip.sh /usr/share/kali-themes/xfce4-panel-genmon-vpnip.sh
-# echo -e "${GREEN}[*] copy vpn-ip.sh completed ${NC}"
-
+echo -e "${GREEN}[*] copy vpn-ip.sh completed ${NC}"
 
 
 ########################################
