@@ -102,9 +102,9 @@ echo -e "${GREEN}[*] Installed Complete... ${NC}"
 ########################################
 echo -e "${GREEN}[*] Installing oh-my-zsh ${NC}"
 
-chmod +x ZSH.sh
-./ZSH.sh
-sudo HOME=/root ./ZSH.sh
+chmod +x Script/ZSH.sh
+./Script/ZSH.sh
+sudo HOME=/root ./Script/ZSH.sh
 
 echo -e "${GREEN}[*] copying .zshrc to root directory completed ${NC}"
 
@@ -203,14 +203,14 @@ echo -e "${GREEN}[*] Killing TMUX SERVER RUNNING check if there is any error on 
 tmux kill-server
 echo -e "${GREEN}[*] Load tmux config completed ${NC}"
 
-echo -e "${GREEN}[*] chmod +x Local_IP.sh completed ${NC}"
-chmod +x xfce4-panel-genmon-Local_IP.sh
-sudo cp xfce4-panel-genmon-Local_IP.sh /usr/share/kali-themes/xfce4-panel-genmon-Local_IP.sh
+echo -e "${GREEN}[*] chmod +x Script/Local_IP.sh completed ${NC}"
+chmod +x Script/xfce4-panel-genmon-Local_IP.sh
+sudo cp Script/xfce4-panel-genmon-Local_IP.sh /usr/share/kali-themes/xfce4-panel-genmon-Local_IP.sh
 echo -e "${GREEN}[*] copy Local_IP.sh completed ${NC}"
 
-echo -e "${GREEN}[*] chmod +x vpn-ip.sh completed ${NC}"
-chmod +x xfce4-panel-genmon-vpnip.sh
-sudo  cp xfce4-panel-genmon-vpnip.sh /usr/share/kali-themes/xfce4-panel-genmon-vpnip.sh
+echo -e "${GREEN}[*] chmod +x Script/vpn-ip.sh completed ${NC}"
+chmod +x Script/xfce4-panel-genmon-vpnip.sh
+sudo  cp Script/xfce4-panel-genmon-vpnip.sh /usr/share/kali-themes/xfce4-panel-genmon-vpnip.sh
 echo -e "${GREEN}[*] copy vpn-ip.sh completed ${NC}"
 
 
@@ -218,11 +218,11 @@ echo -e "${GREEN}[*] copy vpn-ip.sh completed ${NC}"
 # Python Virtual Environment Setup
 ########################################
 echo -e "${GREEN}[*] Running the create_py_envs Script to create an virtual environment${NC}"
-chmod +x create_py_envs.sh
-./create_py_envs.sh
+chmod +x Script/create_py_envs.sh
+./Script/create_py_envs.sh
 
 echo -e "${GREEN}[*] Python Virtual Environment Setup for Root ${NC}"
-sudo ./create_py_envs.sh
+sudo ./Script/create_py_envs.sh
 echo -e "${GREEN}[*] Python Virtual Environment Setup Complete${NC}"
 
 ########################################
