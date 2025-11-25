@@ -1,67 +1,57 @@
 param(
-    [int]$Port = 8080
+    [int]$Port = 80        # Default port
 )
 
-# A global listener variable for the finally block
-$listener = $null
+# Serve from the directory where the script is launched
+$Directory = (Get-Location).Path
 
-try {
-    # Check if HttpListener is supported
-    if ([System.Net.HttpListener]::IsSupported) {
-        $listener = New-Object System.Net.HttpListener
-        $listener.Prefixes.Add("http://+:$Port/")
-        $listener.Start()
-        Write-Host "Listening on http://localhost:$Port/"
-        Write-Host "Serving files from: $(Get-Location)"
-        Write-Host "Press Ctrl+C to stop the server."
+Write-Host "Serving $Directory on http://localhost:$Port"
+Write-Host "Press CTRL+C to stop.`n"
 
-        # Keep the server running
-        while ($listener.IsListening) {
-            $context = $listener.GetContext()
-            $request = $context.Request
-            $response = $context.Response
-            $path = $request.Url.LocalPath
-            $filePath = Join-Path (Get-Location) $path
+# Create HTTP listener
+$listener = New-Object System.Net.HttpListener
+$listener.Prefixes.Add("http://*:$Port/")
+$listener.Start()
 
-            # Serve index.html or directory listing
-            if ($path -eq "/") {
-                $indexPath = Join-Path (Get-Location) "index.html"
-                if (Test-Path $indexPath -PathType Leaf) {
-                    $filePath = $indexPath
-                }
+while ($listener.IsListening) {
+    $context = $listener.GetContext()
+    $request  = $context.Request
+    $response = $context.Response
+
+    # Resolve requested path
+    $localPath = Join-Path $Directory ($request.Url.LocalPath.TrimStart("/"))
+
+    if (Test-Path $localPath) {
+
+        if (Get-Item $localPath | Where-Object { $_.PSIsContainer }) {
+            # Directory listing
+            $files = Get-ChildItem $localPath
+            $html = "<html><body><h2>Index of $($request.Url.LocalPath)</h2><ul>"
+            foreach ($f in $files) {
+                $name = $f.Name
+                $html += "<li><a href=""$($request.Url.LocalPath.TrimEnd('/'))/$name"">$name</a></li>"
             }
+            $html += "</ul></body></html>"
 
-            if (Test-Path $filePath -PathType Leaf) {
-                $response.ContentType = [System.Web.MimeMapping]::GetMimeMapping($filePath)
-                $fileContent = [System.IO.File]::ReadAllBytes($filePath)
-                $response.OutputStream.Write($fileContent, 0, $fileContent.Length)
-            } elseif (Test-Path $filePath -PathType Container) {
-                $response.ContentType = "text/html"
-                $html = "<html><body><h1>Directory Listing for $path</h1><ul>"
-                Get-ChildItem -Path $filePath | ForEach-Object {
-                    $html += "<li><a href='$($_.Name)'>$($_.Name)</a></li>"
-                }
-                $html += "</ul></body></html>"
-                $buffer = [System.Text.Encoding]::UTF8.GetBytes($html)
-                $response.OutputStream.Write($buffer, 0, $buffer.Length)
-            } else {
-                $response.StatusCode = 404
-                $response.StatusDescription = "Not Found"
-            }
+            $buffer = [System.Text.Encoding]::UTF8.GetBytes($html)
+            $response.ContentType = "text/html"
+            $response.OutputStream.Write($buffer, 0, $buffer.Length)
 
-            $response.OutputStream.Close()
+        } else {
+            # File download
+            $bytes = [System.IO.File]::ReadAllBytes($localPath)
+            $response.ContentType = "application/octet-stream"
+            $response.AddHeader("Content-Disposition", "attachment; filename=$(Split-Path $localPath -Leaf)")
+            $response.ContentLength64 = $bytes.Length
+            $response.OutputStream.Write($bytes, 0, $bytes.Length)
         }
+
     } else {
-        Write-Error "HttpListener is not supported on this operating system."
+        # 404 not found
+        $response.StatusCode = 404
+        $buffer = [System.Text.Encoding]::UTF8.GetBytes("<h1>404 Not Found</h1>")
+        $response.OutputStream.Write($buffer, 0, $buffer.Length)
     }
-}
-catch {
-    Write-Error "An error occurred: $($_.Exception.Message)"
-}
-finally {
-    if ($listener -and $listener.IsListening) {
-        $listener.Stop()
-        $listener.Close()
-        Write-Host "Server stopped."
-    }
+
+    $response.OutputStream.Close()
 }
