@@ -32,6 +32,7 @@ sudo apt install -y terminator
 sudo apt install -y rlwrap
 sudo apt install -y socat
 sudo apt install -y zsh
+sudo apt install -y bloodhound
 sudo apt install fonts-jetbrains-mono
 sudo apt install -y docker-cli docker-compose docker.io 
 
@@ -157,17 +158,8 @@ echo -e "${GREEN}[*]  Go-Lang Installed ${NC}"
 
 echo -e "${GREEN}[*]  Installing Go-Lang Tools  ${NC}"
 
-go install -v github.com/OJ/gobuster/v3@latest
-go install -v github.com/sensepost/gowitness@latest
-go install -v github.com/tomnomnom/assetfinder@latest
-go install -v github.com/tomnomnom/waybackurls@latest
-go install -v github.com/owasp-amass/amass/v3/...@latest
-go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-
-
-
+chmod +x go-tools.sh
+./go-tools.sh
 
 ########################################
 # Extract RockYou.txt
