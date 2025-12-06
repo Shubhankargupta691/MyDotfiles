@@ -158,8 +158,8 @@ echo -e "${GREEN}[*]  Go-Lang Installed ${NC}"
 
 echo -e "${GREEN}[*]  Installing Go-Lang Tools  ${NC}"
 
-chmod +x go-tools.sh
-./go-tools.sh
+chmod +x Script/go-tools.sh
+./Script/go-tools.sh
 
 ########################################
 # Extract RockYou.txt
