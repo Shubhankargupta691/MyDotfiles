@@ -138,4 +138,5 @@ alias rustscan='docker run --rm rustscan/rustscan -a'
 alias Bloodhound_4.1.0='sudo $KALI_USER/Desktop/OSCP/Active_Directory_Tools/BloodHound-linux-x64/BloodHound --no-sandbox <<< "8"'
 
 #Go lang Path
-export PATH=$PATH:/usr/local/go/bin
+export GOPATH="${GOPATH:-$HOME/go}"
+export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
