@@ -33,6 +33,8 @@ sudo apt install -y rlwrap
 sudo apt install -y socat
 sudo apt install -y zsh
 sudo apt install -y bloodhound
+sudo apt install -y villain
+sudo apt install -y hoaxshell
 sudo apt install fonts-jetbrains-mono
 sudo apt install -y docker-cli docker-compose docker.io 
 
