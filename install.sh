@@ -36,6 +36,7 @@ sudo apt install -y bloodhound
 sudo apt install -y villain
 sudo apt install -y hoaxshell
 sudo apt install -y remmina
+sudo apt install -y rubeus
 sudo apt install -y fonts-jetbrains-mono
 sudo apt install -y docker-cli docker-compose docker.io 
 
