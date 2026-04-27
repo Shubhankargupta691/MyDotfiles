@@ -123,7 +123,11 @@ source $ZSH/oh-my-zsh.sh
 alias py2env='source $HOME/envs/py2env/bin/activate <<< "1"'
 # Quick activate Python 3 virtual environment
 alias py3env='source $HOME/envs/py3env/bin/activate <<< "2"'
-alias vpn='sudo openvpn $KALI_USER/Desktop/THM/VPN/ShubhankarGupta.ovpn <<< "3"'
+
+# VPN THM and HTB
+alias vpn='sudo openvpn $KALI_USER/Desktop/THM/VPN/ap-south-1-ShubhankarGupta-premium.ovpn <<< "3"'
+alias htb_vpn='sudo openvpn $KALI_USER/Desktop/HTB/VPN/machines_us-dedivip-3.ovpn <<< "10"'
+
 alias home='cd $KALI_USER/Desktop/THM/Offensive\ Pentesting <<< "4"'
 
 # OSCP TOOLS
@@ -134,12 +138,20 @@ alias winServer='cd $KALI_USER/Desktop/OSCP/Windows-Enumeration/Windows-httpServ
 #RUSTSCAN ALISA
 alias rustscan='docker run --rm rustscan/rustscan -a'
 
+# Wordpress Scan
+alias wp-scan-script='sudo ~/Desktop/OSCP/wordpress/wp-scan.sh'
+
+
+
 #BloodHound_4.1.0:
 alias Bloodhound_4.1.0='sudo $KALI_USER/Desktop/OSCP/Active_Directory_Tools/BloodHound-linux-x64/BloodHound --no-sandbox <<< "8"'
 
 #GO HTTPX
 alias go_httpx='~/go/bin/httpx <<< "9"'
 
+alias pycharm='/usr/bin/pycharm-2025.3.1.1/bin/pycharm.sh'
+
 #Go lang Path
 export GOPATH="${GOPATH:-$HOME/go}"
 export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+#export PATH=$PATH:/usr/local/go/bin
