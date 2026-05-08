@@ -3,7 +3,7 @@
 # Check if a target is provided
 if [ -z "$1" ]; then
     echo "Usage: ./wp_enum.sh <URL>"
-    echo "Example: ./wp_enum.sh http://backdoor.htb"
+    echo "Example: ./wp_enum.sh http://backdoor.htb/blog"
     exit 1
 fi
 
