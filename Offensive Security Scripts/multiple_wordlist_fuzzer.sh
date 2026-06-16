@@ -22,6 +22,7 @@ FILTERS=" -mc 200,301,302 -fc 403,404"
 WORDLISTS=(
     "/usr/share/wordlists/dirb/common.txt"
     "/usr/share/wordlists/dirb/big.txt"
+    "/usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt"
     "/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt"
     "/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-large-files.txt"
 )
