@@ -19,6 +19,7 @@ WORDLISTS=(
     "/usr/share/wordlists/dirb/common.txt"
     "/usr/share/wordlists/dirb/big.txt"
     "/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt"
+    "/usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt"
     "/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-large-files.txt"
     "/usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-big.txt"
 )
