@@ -25,7 +25,7 @@ shift 2
 USER=""
 PASS=""
 HASH=""
-TIMEOUT_VAL="10" 
+TIMEOUT_VAL="15" 
 
 while getopts "u:p:H:t:" opt; do
     case $opt in
